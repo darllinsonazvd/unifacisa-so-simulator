@@ -1,25 +1,35 @@
 package so.process;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 //import so.memory.AdressMemory;
 
 public class SoProcess {
 	private int sizeInMemory;
 	private String id;
-//	private AdressMemory am;
+	private List<String> subProcesses;
+	private PriorityEnum priority;
+
+	private final Integer MINIMUM_PRIORITY = 1;
+	private final Integer MAXIMUM_PRIORITY = 3;
 	private static int count;
 
-	// private int numberOfInstructions;
-	private List<String> subProcesses;
-
 	public SoProcess(int sizeInMemory) {
+		Random random = new Random();
+		var randomPriority = random.nextInt(MINIMUM_PRIORITY, MAXIMUM_PRIORITY + 1);
+
 		count++;
 		this.id = "P" + count ;
 		this.sizeInMemory = sizeInMemory;
 		this.subProcesses = this.getSubProcesses();
 
+		var priorities = PriorityEnum.values();
+
+		this.priority = Arrays.stream(priorities).filter(priorityEnum -> priorityEnum.getValue() == randomPriority).findFirst().get();
+		System.out.println(id + " - prioridade: " + priority.getValue());
 	}
 
 	public List<String> getSubProcesses() {
@@ -48,6 +58,14 @@ public class SoProcess {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public PriorityEnum getPriority() {
+		return priority;
+	}
+
+	public void setPriority(PriorityEnum priority) {
+		this.priority = priority;
 	}
 
 	@Override

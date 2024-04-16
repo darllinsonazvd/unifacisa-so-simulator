@@ -28,7 +28,6 @@ public class Lottery extends Scheduler {
         Random random = new Random();
 
         if (this.processQueue != null && !this.processQueue.isEmpty()) {
-
             int randomIndex = random.nextInt(processQueue.size());
             SoProcess process = processQueue.get(randomIndex);
 
@@ -50,13 +49,11 @@ public class Lottery extends Scheduler {
 
     @Override
     public void finish(SoProcess p) {
-        // Implementação específica para Loteria
+        // TODO Implementação específica para Loteria
     }
 
     @Override
     public boolean isEmpty() {
-
-        // Verificar se a fila de processos está vazia
         return this.processQueue.isEmpty();
     }
 
@@ -64,6 +61,4 @@ public class Lottery extends Scheduler {
     public void add(SoProcess p) {
         this.processQueue.add(p);
     }
-
-
 }

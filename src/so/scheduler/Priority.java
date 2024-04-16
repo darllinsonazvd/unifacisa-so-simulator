@@ -1,42 +1,33 @@
 package so.scheduler;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.PriorityQueue;
-
 import so.SystemCallType;
 import so.SystemOperation;
-import so.cpu.Core;
 import so.process.SoProcess;
 import so.process.SubProcess;
 
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 public class Priority extends Scheduler {
+    private LinkedList<SoProcess> processQueue = new LinkedList<>();
+    private LinkedList<SubProcess> subProcessQueue = new LinkedList<>();
 
-	private PriorityQueue<SubProcess> queue;
-	private int order;
-
-	public Priority(int order) {
-		super();
-		this.order = order;
-
-		Comparator<SubProcess> c = new Comparator<SubProcess>() {
-
-			@Override
-			public int compare(SubProcess sp1, SubProcess sp2) {
-				return 0;
-			}
-		};
-		this.queue = new PriorityQueue<>(c);
-	}
+    public Priority() {
+        super();
+    }
 
     @Override
     public SubProcess execute() {
-        return null;
+        orderByPriority();
+        return subProcessQueue.poll();
     }
 
     @Override
     public void finish(SoProcess p) {
-
+        // TODO
     }
 
     @Override
@@ -46,6 +37,34 @@ public class Priority extends Scheduler {
 
     @Override
     public void add(SoProcess p) {
+        this.processQueue.add(p);
+    }
 
+    private void orderByPriority() {
+        Comparator<SoProcess> comparator = (p1, p2) -> {
+            if (p1.getPriority().getValue() < p2.getPriority().getValue()) {
+                return 1;
+            }
+
+            if (p2.getPriority().getValue() < p1.getPriority().getValue()) {
+                return -1;
+            }
+
+            return 0;
+        };
+
+        this.processQueue = new LinkedList<>(this.processQueue.stream().sorted(comparator).collect(Collectors.toList()));
+
+        if (!processQueue.isEmpty()) {
+            var process = this.processQueue.poll();
+            List<SubProcess> subProcesses = SystemOperation.systemCall(
+                    SystemCallType.READ_PROCESS,
+                    process
+            );
+
+            for (SubProcess subProcess : subProcesses) {
+                subProcessQueue.add(subProcess);
+            }
+        }
     }
 }
