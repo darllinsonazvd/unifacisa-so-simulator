@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author davig
+ *
+ */
+module MemoryManager {
+}
