@@ -5,7 +5,7 @@ import java.util.List;
 import so.memory.MemoryManager;
 import so.process.SoProcess;
 import so.process.SubProcess;
-import so.scheduler.FCFS;
+import so.scheduler.Lottery;
 import so.scheduler.Scheduler;
 
 public class SystemOperation {
@@ -19,14 +19,12 @@ public class SystemOperation {
                 if (mm == null) {
                     mm = new MemoryManager(4, 256);
                 }
-
                 if (scheduler == null) {
-                    scheduler = new FCFS();
+                    scheduler = new Lottery();
                 }
-
                 return new SoProcess(processSize);
             default:
-                return null;
+                return null; // Adicione tratamento para outros tipos de chamadas de sistema, se necessário
         }
     }
 
@@ -36,10 +34,10 @@ public class SystemOperation {
                 mm.write(p);
                 scheduler.add(p);
                 break;
-            case CLOSE_PROCESS:
+//            case CLOSE_PROCESS:
 //                mm.delete(p);
-                scheduler.finish(p);
-                break;
+//                scheduler.finish(p);
+//                break;
             case READ_PROCESS:
                 return mm.read(p);
             default:

@@ -29,7 +29,6 @@ public class SchedulerQueue extends Scheduler {
     @Override
     public void finish(SoProcess p) {
         processQueue.remove(p);
-        System.out.println("Processo " + p.getId() + " concluído.");
     }
 
     @Override

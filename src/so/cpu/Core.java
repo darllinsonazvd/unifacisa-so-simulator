@@ -15,6 +15,7 @@ public class Core implements Runnable {
 
 	public Core(int id) {
 		this(7, id);
+
 	}
 
 	public SubProcess getActuallySubProcess() {
@@ -39,11 +40,14 @@ public class Core implements Runnable {
 		if (this.numExecutedInstructions >= actuallySubProcess.getInstructions()) {
 			System.out.println(this.actuallySubProcess.getId());
 			this.finishSubProcess();
+
 		}
 	}
 
 	private void finishSubProcess() {
 		this.actuallySubProcess = null;
 		this.numExecutedInstructions = 0;
+
 	}
+
 }
