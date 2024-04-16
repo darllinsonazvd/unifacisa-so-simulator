@@ -12,12 +12,15 @@ public class SoProcess {
 	private String id;
 	private List<String> subProcesses;
 	private PriorityEnum priority;
+	private Integer timeToExecute;
+	private Integer numberOfInstructions;
+	private Integer numberOfInstructionsExecuted;
 
 	private final Integer MINIMUM_PRIORITY = 1;
 	private final Integer MAXIMUM_PRIORITY = 3;
 	private static int count;
 
-	public SoProcess(int sizeInMemory) {
+	public SoProcess(int sizeInMemory, Integer timeToExecute) {
 		Random random = new Random();
 		var randomPriority = random.nextInt(MINIMUM_PRIORITY, MAXIMUM_PRIORITY + 1);
 
@@ -29,7 +32,11 @@ public class SoProcess {
 		var priorities = PriorityEnum.values();
 
 		this.priority = Arrays.stream(priorities).filter(priorityEnum -> priorityEnum.getValue() == randomPriority).findFirst().get();
-		System.out.println(id + " - prioridade: " + priority.getValue());
+		System.out.println(id + " - Prioridade -> " + priority.getValue());
+
+		this.numberOfInstructions = this.subProcesses.size() * 7;
+		this.numberOfInstructionsExecuted = 0;
+		this.timeToExecute = timeToExecute;
 	}
 
 	public List<String> getSubProcesses() {
@@ -68,10 +75,36 @@ public class SoProcess {
 		this.priority = priority;
 	}
 
+	public Integer getTimeToExecute() {
+		return timeToExecute;
+	}
+
+	public void setTimeToExecute(Integer timeToExecute) {
+		this.timeToExecute = timeToExecute;
+	}
+
+	public Integer getNumberOfInstructionsExecuted() {
+		return numberOfInstructionsExecuted;
+	}
+
+	public void setNumberOfInstructionsExecuted() {
+		this.numberOfInstructionsExecuted += 7;
+	}
+
+	public Integer getNumberOfInstructions() {
+		return numberOfInstructions;
+	}
+
+	public void setNumberOfInstructions(Integer numberOfInstructions) {
+		this.numberOfInstructions = numberOfInstructions;
+	}
+
 	@Override
 	public String toString() {
 		return "SoProcess{" +
-				"id='" + id + '\'' +
+				"sizeInMemory=" + sizeInMemory +
+				", id='" + id + '\'' +
+				", priority=" + priority +
 				'}';
 	}
 }

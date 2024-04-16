@@ -40,14 +40,13 @@ public class Core implements Runnable {
 		if (this.numExecutedInstructions >= actuallySubProcess.getInstructions()) {
 			System.out.println(this.actuallySubProcess.getId());
 			this.finishSubProcess();
-
 		}
 	}
 
 	private void finishSubProcess() {
+		this.actuallySubProcess.getProcess().setNumberOfInstructionsExecuted();
+
 		this.actuallySubProcess = null;
 		this.numExecutedInstructions = 0;
-
 	}
-
 }

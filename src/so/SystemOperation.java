@@ -7,6 +7,7 @@ import so.process.SoProcess;
 import so.process.SubProcess;
 import so.scheduler.Lottery;
 import so.scheduler.Priority;
+import so.scheduler.SJF;
 import so.scheduler.Scheduler;
 
 public class SystemOperation {
@@ -14,7 +15,7 @@ public class SystemOperation {
     private static MemoryManager mm;
     private static Scheduler scheduler;
 
-    public static SoProcess systemCall(SystemCallType type, Integer processSize) {
+    public static SoProcess systemCall(SystemCallType type, Integer processSize, Integer timeToExecute) {
         switch (type) {
             case CREATE_PROCESS:
                 if (mm == null) {
@@ -22,10 +23,10 @@ public class SystemOperation {
                 }
 
                 if (scheduler == null) {
-                    scheduler = new Priority();
+                    scheduler = new SJF();
                 }
 
-                return new SoProcess(processSize);
+                return new SoProcess(processSize, timeToExecute);
             default:
                 return null;
         }
