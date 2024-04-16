@@ -46,6 +46,7 @@ public class MemoryManager {
         } else {
             System.out.println("Sem memória");
         }
+
         printMemoryState();
     }
 
@@ -60,9 +61,7 @@ public class MemoryManager {
     }
 
     private void printMemoryState() {
-        System.out.println("|-----------------------------------------------|");
-        System.out.println("|            Estado atual da memória            |");
-        System.out.println("|-----------------------------------------------|");
+        System.out.println("|----------------------- MEMORIA -----------------------|\n");
 
         for (int i = 0; i < memoryPhysical.length; i++) {
             for (int j = 0; j < this.memoryPhysical[i].length; j++) {

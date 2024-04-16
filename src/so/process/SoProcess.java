@@ -50,4 +50,10 @@ public class SoProcess {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "SoProcess{" +
+				"id='" + id + '\'' +
+				'}';
+	}
 }

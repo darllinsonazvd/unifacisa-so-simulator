@@ -61,4 +61,11 @@ public class SubProcess {
     public int getTotalInstructions() {
         return instructions;
     }
+
+    @Override
+    public String toString() {
+        return "SubProcess{" +
+                "id='" + id + '\'' +
+                '}';
+    }
 }

@@ -8,31 +8,23 @@ import so.process.SubProcess;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Lottery extends Scheduler {
-    private LinkedList<SoProcess> processQueue = new LinkedList<SoProcess>();
-    private LinkedList<SubProcess> subProcessQueue = new LinkedList<SubProcess>();
+    private LinkedList<SoProcess> processQueue = new LinkedList<>();
+    private LinkedList<SubProcess> subProcessQueue = new LinkedList<>();
+
     public Lottery () {
         super();
     }
 
-
     @Override
     public SubProcess execute() {
         lotteryFirstProcess();
-        if (this.processQueue != null && !this.processQueue.isEmpty()) {
-
-            if (this.subProcessQueue != null && !this.subProcessQueue.isEmpty()) {
-                return subProcessQueue.poll();
-
-            }
-        }
-
-        return null;
-
+        return subProcessQueue.poll();
     }
 
-    private SoProcess lotteryFirstProcess() {
+    private void lotteryFirstProcess() {
         Random random = new Random();
 
         if (this.processQueue != null && !this.processQueue.isEmpty()) {
@@ -40,11 +32,8 @@ public class Lottery extends Scheduler {
             int randomIndex = random.nextInt(processQueue.size());
             SoProcess process = processQueue.get(randomIndex);
 
-
-
             if (process != null) {
-                System.out.println("to aqui");
-                List<SubProcess> subProcesses = (List<SubProcess>) SystemOperation.systemCall(
+                List<SubProcess> subProcesses = SystemOperation.systemCall(
                         SystemCallType.READ_PROCESS,
                         process
                 );
@@ -53,11 +42,9 @@ public class Lottery extends Scheduler {
                     subProcessQueue.add(subProcess);
                 }
 
-                processQueue.removeIf(p -> p.getId() == process.getId());
+                processQueue = new LinkedList<>(processQueue.stream().filter(p -> p.getId() != process.getId()).collect(Collectors.toList()));
             }
-            return process;
         }
-        return null;
     }
 
 
