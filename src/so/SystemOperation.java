@@ -1,14 +1,11 @@
 package so;
 
-import java.util.List;
-
 import so.memory.MemoryManager;
 import so.process.SoProcess;
 import so.process.SubProcess;
-import so.scheduler.Lottery;
-import so.scheduler.Priority;
-import so.scheduler.SJF;
-import so.scheduler.Scheduler;
+import so.scheduler.*;
+
+import java.util.List;
 
 public class SystemOperation {
 
@@ -23,6 +20,9 @@ public class SystemOperation {
                 }
 
                 if (scheduler == null) {
+//                    scheduler = new FCFS();
+//                    scheduler = new Lottery();
+//                    scheduler = new Priority();
                     scheduler = new SJF();
                 }
 
@@ -47,6 +47,7 @@ public class SystemOperation {
             default:
                 return null;
         }
+
         return null;
     }
 }

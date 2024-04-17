@@ -18,36 +18,6 @@ public class SJF extends Scheduler {
         super();
     }
 
-//    @Override
-//    public SubProcess execute() {
-//
-//        if (this.procesessQueue != null && !this.procesessQueue.isEmpty()) {
-//            if (this.subQueue != null && !this.procesessQueue.isEmpty()) {
-//                SubProcess removeFila = null;
-//                for (int i = 0; i < subQueue.size(); i++) {
-//
-//                    if (this.procesessQueue.peek().getNumberOfInstructionsExecuted() == this.procesessQueue.peek()
-//                            .getNumberOfInstructions()) {
-//                        this.procesessQueue.poll();
-//
-//                    }
-//                    if (this.subQueue.get(i).getprocess().getId() == this.procesessQueue.peek().getId()) {
-//                        removeFila = this.subQueue.get(i);
-//                        this.subQueue.remove(i);
-//                        return removeFila;
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//        return null;
-//
-//    }
-
     @Override
     public SubProcess execute() {
         orderByNumberOfInstructions();
