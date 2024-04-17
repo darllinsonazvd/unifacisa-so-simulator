@@ -39,6 +39,19 @@ public class SoProcess {
 		this.timeToExecute = timeToExecute;
 	}
 
+	public SoProcess(int sizeInMemory, Integer timeToExecute, PriorityEnum priority) {
+		count++;
+		this.id = "P" + count ;
+		this.sizeInMemory = sizeInMemory;
+		this.subProcesses = this.getSubProcesses();
+
+		this.priority = priority;
+
+		this.numberOfInstructions = this.subProcesses.size() * 7;
+		this.numberOfInstructionsExecuted = 0;
+		this.timeToExecute = timeToExecute;
+	}
+
 	public List<String> getSubProcesses() {
 		if (this.subProcesses == null || this.subProcesses.isEmpty()) {
 			List<String> sp = new LinkedList<>();
